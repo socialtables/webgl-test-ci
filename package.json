@@ -1,0 +1,26 @@
+{
+  "name": "webgl-test-ci",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test-images": "webpack && electron ./ --ignore-gpu-blacklist --enable-logging",
+    "docker-build": "docker build -t webgl-test-ci .",
+    "docker-run": "docker run -v ${PWD}/generated-images:/generated-images -it --privileged webgl-test-ci",
+    "test": "npm run docker-build && npm run docker-run"
+  },
+  "author": "Social Tables",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "body-parser": "^1.17.1",
+    "electron": "^1.6.2",
+    "express": "^4.15.2",
+    "three": "^0.84.0",
+    "unfetch": "^2.1.2",
+    "webpack": "^2.3.3"
+  }
+}
