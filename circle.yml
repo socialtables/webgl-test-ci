@@ -1,0 +1,17 @@
+machine:
+  node:
+   version: 6.9.1
+  services:
+    - docker
+general:
+  artifacts:
+      - "generated-images"
+
+dependencies:
+  override:
+    - docker info
+    - docker build --rm=false -t webgl-test-ci .
+
+test:
+  override:
+    - docker run -e CIRCLE_ARTIFACTS=${CIRCLE_ARTIFACTS} -v ${PWD}/generated-images:/generated-images -it --privileged webgl-test-ci
