@@ -1,6 +1,8 @@
 ## WebGL-Test-CI
 an example of how we run WebGL test on CI(continuous integration).
 
+[![CircleCI](https://circleci.com/gh/socialtables/webgl-test-ci.svg?style=svg&circle-token=823a8a192f2ef57e987371e7918c5c37a126cedd)](https://circleci.com/gh/socialtables/webgl-test-ci)
+
 One of the pain point for running WebGL test on CI is most CIs don't have GPU support, especially for client side rendering. For server side rendering, we could use [headless-gl](https://github.com/stackgl/headless-gl). The testing we are running here is focus on client side WebGL rendering and mostly for image comparison.
 
 
