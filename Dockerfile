@@ -21,7 +21,7 @@ RUN apt-get update && \
 
 
 # Install app dependencies
-COPY package.json /usr/src/dockerapp/webgl-test-ci
+COPY package.json /usr/src/dockerapp/webgl-test-ci/package.json
 RUN npm install
 
 # Bundle app source
