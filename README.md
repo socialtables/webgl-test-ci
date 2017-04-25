@@ -1,5 +1,5 @@
 ## WebGL-Test-CI
-an example of how we run WebGL test on CI(continuous integration).
+an example of how we run WebGL tests on CI(continuous integration).
 
 CircleCI
 
@@ -10,21 +10,26 @@ TravisCI
 
 [![Build Status](https://travis-ci.com/socialtables/webgl-test-ci.svg?token=ttyGPvHTywxXgN8yBeaM&branch=master)](https://travis-ci.com/socialtables/webgl-test-ci)
 
-One of the pain point for running WebGL test on CI is most CIs don't have GPU support, especially for client side rendering. For server side rendering, we could use [headless-gl](https://github.com/stackgl/headless-gl). The testing we are running here is focus on client side WebGL rendering and mostly for image comparison.
+One of the pain points for running WebGL test on CI is most CIs don't have GPU support, especially for client side rendering. For server side rendering, we could use [headless-gl](https://github.com/stackgl/headless-gl). The tests we are running here is focus on client side WebGL rendering utilizing image comparison.
 
 
 #### Enviroments
 * Electron
 
-	We use electron as our client side rendering for WebGL. When we run Electron, we pass a chromium flag **--ignore-gpu-blacklist** to make sure our WebGL test can run in an non-gpu environment.
+	We use Electron as our client side rendering for WebGL. Since most popular CI tools don’t provide a GPU and WebGL will not work without a GPU by default in Chromium environments, we need to pass **--ignore-gpu-blacklist** to Electron to made sure our WebGL application runs in non-GPU environment.We’ve also found it useful to print logging on the server console using **--enable-logging**, like this.
+
+
+```
+electron test/. --ignore-gpu-blacklist --enable-logging
+```
 
 * Docker
 
-	Dcoker is used to make sure the environment we run the test are the same on local and on CI.
+	Docker is used to make sure the environment we run the tests in is the same on local and CI.
 
-* CircleCI
+* CircleCI/TravisCI
 
-	We use CircleCI here as the CI example. As long as the CI supports Docker, our test should run fine.
+	We use CircleCI and TravisCI here as the CI examples. As long as the CI supports Docker, our tests should run fine.
 
 * Webpack
 
@@ -35,6 +40,6 @@ One of the pain point for running WebGL test on CI is most CIs don't have GPU su
 
 ``` npm run test ```
 
-Everytime we run the test, we will run our test inside Docker, which is same as when we run our test on CI. The images we generate inside Docker will copy out to our local using shared volume.
+Every time we run the test, we will run our test inside Docker, which is same as when we run our test on CI. The images we generate inside Docker will copy out to our local using shared volume.
 
-For image comparison, there are multiple libraries could do that.
+For image comparison, there are multiple libraries could do that. We use [pixel-compare](https://github.com/tiansijie/pixel-compare) as our image comparison library.
